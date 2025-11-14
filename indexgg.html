@@ -1,0 +1,995 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Wkwkwkwk Resto - Login</title>
+<style>
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0; background: #ffffff; color: #222;
+    background-image: url(https://png.pngtree.com/background/20210709/original/pngtree-food-hand-painted-yellow-poster-background-banner-picture-image_852874.jpg);
+  }
+
+  header {
+    background: #ffcf57;
+    color: rgb(255, 183, 49);
+    padding: 15px 20px;
+    text-align: center;
+    font-weight: 700;
+    font-size: 24px;
+    letter-spacing: 2px;
+  }
+  
+  /* Container login */
+  #loginSection {
+  height: 100vh;
+  display: flex; justify-content: center; align-items: center;
+  background-image: url('pngtree-hand-painted-minimalist-watercolor-healthy-food-background-picture-image_1299744.jpg');
+  background-size: cover;
+  background-position: center;
+}
+  #loginForm {
+    background: rgb(255, 255, 255);
+    padding: 30px 40px;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.1);
+    width: 320px;
+  }
+  #loginForm h2 {
+    margin-bottom: 15px;
+    font-weight: 700;
+    color: #bd1919;
+  }
+  #loginForm label {
+    display: block;
+    margin: 10px 0 6px;
+    font-size: 14px;
+    color: #555;
+  }
+  #loginForm input[type=text], #loginForm input[type=password] {
+    width: 92%;
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 1px solid #e44949;
+    font-size: 14px;
+  }
+  #loginForm button {
+    margin-top: 18px;
+    width: 100%;
+    padding: 10px 0;
+    background-color: #19d263;
+    border: none;
+    color: white;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  #loginForm button:hover {
+    background-color: #ff9292;
+  }
+  #demoNote {
+    margin-top: 12px;
+    font-size: 13px;
+    color: #a10d0d;
+    background: #e3f2fd;
+    padding: 10px;
+    border-radius: 8px;
+  }
+
+  /* Main app */
+  #appSection {
+    display: none;
+    max-width: 1100px;
+    margin: 20px auto;
+    padding: 0 16px 50px;
+  }
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #fce5e5;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+  }
+  header h1 {
+    color: #000000;
+  }
+  header button {
+    background: #ef5350;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 8px;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  header button:hover {
+    background: #d32f2f;
+  }
+
+  /* Lokasi info & tombol lokasi */
+  #locationInfo {
+    font-size:14px;
+    color: #eee;
+    margin-top:8px;
+  }
+  #checkLocationBtn {
+    margin: 10px 0;
+    padding: 6px 12px;
+    background: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  #checkLocationBtn:hover {
+    background: #43a047;
+  }
+
+  /* Layout grid */
+  .container {
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: 24px;
+  }
+  @media (max-width: 800px) {
+    .container {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* Menu section */
+  .menuSection {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.07);
+    padding: 16px;
+  }
+  .menuSection h2 {
+    color: #ff3b30;
+    margin-bottom: 14px;
+  }
+  .menuGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill,minmax(140px,1fr));
+    gap: 12px;
+  }
+  .menuCard {
+    border: 1px solid #fbecbb;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #fffbf5;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+  }
+  .menuCard img {
+    width: 100%;
+    height: 90px;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+  .menuCard .itemName {
+    font-weight: 600;
+    margin-top: 8px;
+    color: #0da130;
+  }
+  .menuCard .itemPrice {
+    margin-top: 5px;
+    font-weight: 700;
+    color: #fb8c00;
+  }
+  .menuCard input[type=number] {
+    margin-top: 8px;
+    width: 50px;
+    border-radius: 8px;
+    border: 1px solid #f9df90;
+    text-align: center;
+    font-size: 14px;
+  }
+
+  /* Cart section */
+  .cartSection {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.07);
+    padding: 16px;
+  }
+  .cartHeader {
+    display: flex; justify-content: space-between; align-items: center;
+    border-bottom: 1px solid #f9e490;
+    padding-bottom: 6px;
+    margin-bottom: 12px;
+  }
+  .cartHeader strong {
+    color: #d28e19;
+  }
+  .cartContent {
+    background: #f0f7ff;
+    min-height: 120px;
+    font-family: monospace;
+    white-space: pre-wrap;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px dashed #f9d490;
+    color: #d28e19;
+  }
+  .cartSummary {
+    margin-top: 14px;
+    font-family: monospace;
+    font-weight: 600;
+    color: #d28e19;
+  }
+  .paymentOptions {
+    margin-top: 16px;
+  }
+  .paymentOptions label {
+    margin-right: 15px;
+    font-weight: 600;
+    color: #dd9c2c;
+  }
+  .paymentLogo {
+    display: block;
+    margin: 10px 0 0;
+    width: 140px;
+  }
+
+  .actionButtons {
+    margin-top: 18px;
+    display: flex;
+    gap: 10px;
+  }
+  .actionButtons button {
+    flex: 1;
+    border-radius: 8px;
+    padding: 10px 0;
+    font-weight: 700;
+    cursor: pointer;
+  }
+  .printBtn {
+    background-color: #d21919;
+    color: white;
+    border: none;
+  }
+  .printBtn:hover {
+    background-color: #1565c0;
+  }
+  .clearBtn {
+    background-color: transparent;
+    border: 2px solid #1976d2;
+    color: #1976d2;
+  }
+  .clearBtn:hover {
+    background-color: #1976d2;
+    color: white;
+  }
+  
+  /* History Section */
+  #historySection {
+    display: none;
+    max-width: 1100px;
+    margin: 20px auto;
+    padding: 0 16px 50px;
+  }
+  .historyHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #fce5e5;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+  }
+  .historyHeader h1 {
+    color: #000000;
+  }
+  .historyHeader button {
+    background: #ef5350;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 8px;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .historyHeader button:hover {
+    background: #d32f2f;
+  }
+  .historyTable {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 0 15px rgba(0,0,0,0.07);
+  }
+  .historyTable th, .historyTable td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #f0f0f0;
+  }
+  .historyTable th {
+    background-color: #ffd151;
+    color: #333;
+    font-weight: 600;
+  }
+  .historyTable tr:last-child td {
+    border-bottom: none;
+  }
+  .historyTable tr:hover {
+    background-color: #f9f9f9;
+  }
+  .historyTable .viewDetails {
+    color: #1976d2;
+    cursor: pointer;
+    text-decoration: underline;
+  }
+  .historyTable .viewDetails:hover {
+    color: #0d47a1;
+  }
+  .emptyHistory {
+    text-align: center;
+    padding: 30px;
+    color: #777;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.07);
+  }
+  .historyDetailModal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+  }
+  .historyDetailContent {
+    background-color: white;
+    padding: 20px;
+    border-radius: 15px;
+    width: 80%;
+    max-width: 600px;
+    max-height: 80vh;
+    overflow-y: auto;
+  }
+  .historyDetailHeader {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+  }
+  .historyDetailHeader h3 {
+    margin: 0;
+    color: #d32f2f;
+  }
+  .closeDetailBtn {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    color: #b90b0b;
+  }
+  .closeDetailBtn:hover {
+    color: #d32f2f;
+  }
+  .historyDetailItems {
+    margin: 15px 0;
+  }
+  .historyDetailItems table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .historyDetailItems th, .historyDetailItems td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+  }
+  .historyDetailSummary {
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid #eee;
+  }
+  .historyDetailSummary div {
+    display: flex;
+    justify-content: space-between;
+    margin: 5px 0;
+  }
+  .historyDetailSummary .total {
+    font-weight: bold;
+    font-size: 1.1em;
+    color: #d32f2f;
+  }
+</style>
+</head>
+<body>
+
+<!-- Login -->
+<section id="loginSection" aria-label="Form Login Kasir">
+  <form id="loginForm" aria-describedby="demoNote" novalidate>
+    <h2>Login Kasir</h2>
+
+    <label for="userInput">Username</label>
+    <input type="text" id="userInput" placeholder="admin" autocomplete="username" required>
+
+    <label for="passInput">Password</label>
+    <input type="password" id="passInput" placeholder="••••••" autocomplete="current-password" required>
+
+    <button type="submit">Masuk</button>
+   
+  </form>
+</section>
+
+<!-- Aplikasi Kasir -->
+<section id="appSection" aria-label="Aplikasi Kasir Resto">
+  <header>
+    <h1>Wkwkwk Resto 🍽️</h1>
+    <div>
+      <button id="historyBtn" aria-label="Riwayat Pembelian">Riwayat</button>
+      <button id="logoutBtn" aria-label="Logout">Keluar</button>
+    </div>
+  </header>
+  <div id="locationInfo">📍 Lokasi: Belum diketahui</div>
+  <button id="checkLocationBtn">📍 Cek Lokasi Saya</button>
+
+  <div class="container">
+    <!-- Menu -->
+    <div>
+      <div class="menuSection" aria-label="Menu Makanan">
+        <h2>Makanan</h2>
+        <div id="foodContainer" class="menuGrid"></div>
+      </div>
+      <div class="menuSection" aria-label="Menu Minuman" style="margin-top:20px">
+        <h2>Minuman</h2>
+        <div id="drinkContainer" class="menuGrid"></div>
+      </div>
+    </div>
+
+    <!-- Keranjang -->
+    <aside class="cartSection" aria-label="Keranjang Pesanan">
+      <div class="cartHeader">
+        <strong>Keranjang</strong>
+        <button id="clearCartBtn" aria-label="Kosongkan keranjang" title="Kosongkan Keranjang">✖</button>
+      </div>
+      <pre id="cartContent" class="cartContent" aria-live="polite" aria-atomic="true">Keranjang kosong</pre>
+      <div class="cartSummary" aria-label="Ringkasan Harga">
+        <div>Subtotal: <span id="subtotalDisplay">Rp 0</span></div>
+        <div>Pajak (10%): <span id="taxDisplay">Rp 0</span></div>
+        <div>Total: <span id="totalDisplay">Rp 0</span></div>
+      </div>
+      <form class="paymentOptions" aria-label="Metode Pembayaran">
+        <label><input type="radio" name="payMethod" value="cash" checked> Tunai</label>
+        <label><input type="radio" name="payMethod" value="qris"> QRIS</label>
+        <label><input type="radio" name="payMethod" value="dana"> Dana</label>
+      </form>
+      <img id="paymentImg" class="paymentLogo" src="" alt="" aria-hidden="true" />
+
+      <div class="actionButtons">
+        <button id="printBtn" class="printBtn" aria-label="Cetak struk">Cetak Struk</button>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<!-- Riwayat Pembelian -->
+<section id="historySection" aria-label="Riwayat Pembelian">
+  <div class="historyHeader">
+    <h1>Riwayat Pembelian</h1>
+    <button id="backToAppBtn" aria-label="Kembali ke Aplikasi">Kembali</button>
+  </div>
+  
+  <div id="historyContainer">
+    <div class="emptyHistory">Belum ada riwayat pembelian</div>
+  </div>
+</section>
+
+<!-- Modal Detail Riwayat -->
+<div id="historyDetailModal" class="historyDetailModal">
+  <div class="historyDetailContent">
+    <div class="historyDetailHeader">
+      <h3>Detail Pembelian</h3>
+      <button class="closeDetailBtn">&times;</button>
+    </div>
+    <div id="historyDetailBody">
+      <!-- Konten detail akan diisi oleh JavaScript -->
+    </div>
+  </div>
+</div>
+
+<script>
+// Data menu makanan dan minuman (ditambah 15 item baru masing-masing)
+const foods = [
+  {name: 'Nasi Goreng', price: 22000, img: 'https://www.masakapahariini.com/wp-content/uploads/2021/07/Nasi-Goreng-Spesial-Ayam-Kecombrang-500x300.jpg'},
+  {name: 'Sate Ayam', price: 27000, img: 'https://static.promediateknologi.id/crop/0x0:0x0/750x500/webp/photo/p1/828/2024/03/06/Instagram-jnyfoodjournal-78-2355847896.jpg'},
+  {name: 'Bakso', price: 18000, img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS5RHLq7Gwgqg0Cb4iIb1oxAPRfwcQO48CA9w&s'},
+  {name: 'Mie Ayam', price: 15000, img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQckxT6CtlbZd01HfnGnq97zLuXMURAIy23g&s'},
+  {name: 'Ayam Goreng', price: 25000, img: 'https://assets.promediateknologi.id/crop/0x0:0x0/750x500/webp/photo/p3/105/2024/07/10/ayam-goreng-ketumbar-3111033116.jpg'},
+  {name: 'Gado-gado', price: 18000, img: 'https://static.promediateknologi.id/crop/0x0:0x0/750x500/webp/photo/p2/124/2024/02/22/gado-1853282302.png'},
+  {name: 'Soto Ayam', price: 20000, img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRKISacqQruWQNioCoYuHplsm95w3TiJ2wOrQ&s'},
+  {name: 'Nasi Uduk', price: 22000, img: 'https://statik.tempo.co/data/2025/01/02/id_1366440/1366440_720.jpg'},
+  {name: 'Nasi Padang', price: 35000, img: 'https://rajominang.id/blog/uploads/images/202411/image_750x_6741ddff8bcc2.jpg'},
+  {name: 'Pecel Lele', price: 25000, img: 'https://static.promediateknologi.id/crop/0x0:0x0/750x500/webp/photo/2023/05/30/b2aecfb2-fefd-415f-9424-2485a95d41ef-3601264130.png'},
+  {name: 'Rendang', price: 45000, img: 'https://www.astronauts.id/blog/wp-content/uploads/2023/03/Resep-Rendang-Daging-Sapi-Untuk-Lebaran-Gurih-dan-Nikmat-1024x683.jpg'},
+  {name: 'Ayam Bakar', price: 30000, img: 'https://www.kelasgarasi.com/wp-content/uploads/2024/10/ayam-bakar-indonesia.jpg'},
+  {name: 'Gudeg', price: 28000, img: 'https://img.inews.co.id/media/1200/files/inews_new/2023/03/04/Asal_usul_gudeg.jpg'},
+  {name: 'Pempek', price: 25000, img: 'https://lingkar.news/wp-content/uploads/2023/03/Aneka-Resep-Pempek-Makanan-Tradisional-Khas-Palembang.jpg'},
+  {name: 'Rawon', price: 32000, img: 'https://www.holycowsteak.com/cdn/shop/articles/Thumbnail_bccc9157-1b79-47ed-9300-391dede1d189.webp?v=1748245794'},
+  {name: 'Soto Betawi', price: 35000, img: 'https://buckets.sasa.co.id/v1/AUTH_Assets/Assets/p/website/medias/page_medias/Screen_Shot_2022-06-10_at_16_39_26.png'},
+  {name: 'Nasi Liwet', price: 26000, img: 'https://asset.kompas.com/crops/FOhexu5ZNhIluwawd6muz6pQFEk=/29x0:997x645/1200x800/data/photo/2023/05/27/647153cbeefbe.jpeg'},
+  {name: 'Ketoprak', price: 20000, img: 'https://images.panomnom.com/upload/v1694763776/ST%20RECIPES/VEGETABLES/Ketoprak/Ketoprak_n88j01.jpg?bv=2&height=960'},
+  {name: 'Lontong Sayur', price: 22000, img: 'https://lingkar.news/wp-content/uploads/2023/10/lontong-sayur-betawi.jpg'},
+  {name: 'Tahu Tek', price: 18000, img: 'https://asset.kompas.com/crops/C6e9WnfK-30ltH3jTcFo5cMPL0A=/128x23:938x563/1200x800/data/photo/2021/02/22/603365f91f4df.jpg'},
+  {name: 'Empal Gentong', price: 38000, img: 'https://asset.kompas.com/crops/vS1v_jvf7UL1r-afQXMNxCsJ-TQ=/0x0:1000x667/1200x800/data/photo/2021/05/18/60a36dc5aa887.jpg'},
+  {name: 'Sate Kambing', price: 40000, img: 'https://images.tokopedia.net/img/KRMmCm/2023/6/15/87d08ef8-b8ea-4927-988b-46d7b41f9344.jpg'},
+  {name: 'Nasi Kuning', price: 24000, img: 'https://akcdn.detik.net.id/api/wm/2024/06/12/terlihat-sama-5-racikan-nasi-kuning-berbagai-daerah-dengan-lauk-khas-3_169.jpeg'},
+  {name: 'Mie Tektek', price: 21000, img: 'https://cnc-magazine.oramiland.com/parenting/original_images/Resep_Mie_Tek-tek_dari_Mie_Instan.webp'},
+  {name: 'Sop Buntut', price: 48000, img: 'https://assets.tmecosys.com/image/upload/t_web_rdp_recipe_584x480/img/recipe/ras/Assets/5a4fb730d1d37e4bc58789734b00ce36/Derivates/4178c6e284d9fed6ce0bb4369538c8528b03e3e9.jpg'}
+];
+
+const drinks = [
+  {name: 'Es Teh', price: 7000, img: 'https://akcdn.detik.net.id/visual/2023/10/17/es-teh-manis_169.jpeg?w=1200'},
+  {name: 'Es Kopi', price: 15000, img: 'https://asset.kompas.com/crops/C8Mo8F0gQE6PyXXec9oLxarbh1s=/34x24:475x318/1200x800/data/photo/2021/08/05/610b6ce6b3440.jpg'},
+  {name: 'Kopi Hitam', price: 12000, img: 'https://asset-2.tribunnews.com/wartakota/foto/bank/images/17112013-kopi-1.jpg'},
+  {name: 'Air Mineral', price: 5000, img: 'https://asset.kompas.com/crops/5BrhMudHKog8ndlAmZA1lbj64Qk=/0x0:1000x667/1200x800/data/photo/2018/04/25/662609812.jpg'},
+  {name: 'Es Buah', price: 18000, img: 'https://img.inews.co.id/media/822/files/inews_new/2022/05/18/Resep_Es_Buah_untuk_Jualan.jpg'},
+  {name: 'Es Kelapa', price: 7000, img: 'https://assets.pasundanekspres.co/main/2023/08/Untitled-120.png'},
+  {name: 'Jus Buah Naga', price: 18000, img: 'https://assets.pikiran-rakyat.com/crop/300x362:953x1052/720x0/webp/photo/2025/04/09/2103472169.jpg'},
+  {name: 'Susu Coklat', price: 13000, img: 'https://media.istockphoto.com/id/1253930052/id/foto/milkshake-cokelat-new-england-buatan-sendiri-dalam-gelas-jar-mug-dengan-latar-belakang-kayu.jpg?s=612x612&w=0&k=20&c=LfvGmEhZ9PrY5StupRfY8tzv1N2UZKTZ4islHyn0pLk='},
+  {name: 'Lemon Tea', price: 15000, img: 'https://cdn1-production-images-kly.akamaized.net/x4YVP7hssNoqR16Eo2lADFXSo-U=/1x59:1000x622/1200x675/filters:quality(75):strip_icc():format(jpeg)/kly-media-production/medias/4105104/original/067001500_1659076056-shutterstock_520264186.jpg'},
+  {name: 'Es srepet', price: 14000, img: 'https://source.unsplash.com/featured/?icedcoffee'},
+  {name: 'Es Campur', price: 15000, img: 'https://cdn.yummy.co.id/content-images/images/20240222/15b0c5808c338230d97501ede80c2b31.png?x-oss-process=image/format,webp'},
+  {name: 'Es Dawet', price: 12000, img: 'https://palpos.bacakoran.co/upload/65181e42a66bdcd1b662d0af4cbe356d.jpg'},
+  {name: 'Es Cendol', price: 13000, img: 'https://imgx.sonora.id/crop/0x0:0x0/x/photo/2023/03/13/640d6eac51567jpg-20230313082338.jpg'},
+  {name: 'Es Teler', price: 18000, img: 'https://i.pinimg.com/originals/0a/a1/7e/0aa17ef76b9e1406d88a81ff75d2b2a9.jpg'},
+  {name: 'Es Cincau', price: 10000, img: 'https://cnc-magazine.oramiland.com/parenting/images/es-cincau.width-800.format-webp.webp'},
+  {name: 'Es Doger', price: 14000, img: 'https://asset-2.tribunnews.com/medan/foto/bank/images/es-doger-buah-naga.jpg'},
+  {name: 'Es Kopyor', price: 16000, img: 'https://asset.kompas.com/crops/wZq9DSWRhVCgnIfmR1yJGX9fs_0=/0x218:773x733/1200x800/data/photo/2023/03/14/6410285c190f2.jpg'},
+  {name: 'Es Oyen', price: 15000, img: 'https://topwisata.info/wp-content/uploads/2021/04/Es2BOyen2BMinuman2BKhas2BBandung2B252812529.jpg'},
+  {name: 'Es Podeng', price: 13000, img: 'https://fibercreme.com/wp-content/uploads/2021/05/Es-Podeng-500x500.jpg'},
+  {name: 'Es Selendang Mayang', price: 14000, img: 'https://tribratanews.lampung.polri.go.id/index.php/berkas/posts/1710386773-picsay.jpg'},
+  {name: 'Es Pisang Ijo', price: 16000, img: 'https://static.promediateknologi.id/crop/0x0:0x0/750x500/webp/photo/p2/108/2024/04/02/es-pisang-ijoJPG-891924098.jpg'},
+  {name: 'Es Blewah', price: 12000, img: 'https://blog.tokowahab.com/wp-content/uploads/2021/04/Resep-Es-Blewah-yang-Segar-untuk-Buka-Puasa-di-Blog.tokowahab.com_.png'},
+  {name: 'Es Timun Suri', price: 13000, img: 'https://cdn.rri.co.id/berita/1/images/1679564854597-images_(13)_(16)/1679564854597-images_(13)_(16).jpeg'},
+  {name: 'Es Kacang Merah', price: 14000, img: 'https://asset.kompas.com/crops/jijKaxstgLsWUEJvR-0_B0CgRtk=/47x0:806x506/1200x800/data/photo/2019/08/29/5d677b3c2fd5a.jpg'},
+  {name: 'Es Dawet Hitam', price: 15000, img: 'https://awsimages.detik.net.id/content/2015/11/13/297/budayaindonesia.org.jpg'}
+];
+
+  // DOM references
+  const loginSection = document.getElementById('loginSection');
+  const appSection = document.getElementById('appSection');
+  const historySection = document.getElementById('historySection');
+  const loginForm = document.getElementById('loginForm');
+  const logoutBtn = document.getElementById('logoutBtn');
+  const historyBtn = document.getElementById('historyBtn');
+  const backToAppBtn = document.getElementById('backToAppBtn');
+
+  const foodContainer = document.getElementById('foodContainer');
+  const drinkContainer = document.getElementById('drinkContainer');
+
+  const cartContent = document.getElementById('cartContent');
+  const subtotalDisplay = document.getElementById('subtotalDisplay');
+  const taxDisplay = document.getElementById('taxDisplay');
+  const totalDisplay = document.getElementById('totalDisplay');
+
+  const clearCartBtn = document.getElementById('clearCartBtn');
+  const printBtn = document.getElementById('printBtn');
+
+  const paymentRadios = document.querySelectorAll('input[name="payMethod"]');
+  const paymentImg = document.getElementById('paymentImg');
+
+  const locationInfo = document.getElementById('locationInfo');
+  const checkLocationBtn = document.getElementById('checkLocationBtn');
+  
+  // History elements
+  const historyContainer = document.getElementById('historyContainer');
+  const historyDetailModal = document.getElementById('historyDetailModal');
+  const historyDetailBody = document.getElementById('historyDetailBody');
+  const closeDetailBtn = document.querySelector('.closeDetailBtn');
+
+  // Variabel keranjang
+  // Format: {name, price, qty}
+  let cart = [];
+
+  // Pajak 10%
+  const TAX_RATE = 0.1;
+
+  // Untuk menyimpan alamat saat ini
+  let currentAddress = ''; 
+
+  // Fungsi render menu makanan dan minuman
+  function renderMenu(menu, container) {
+    container.innerHTML = '';
+    menu.forEach((item, idx) => {
+      const card = document.createElement('div');
+      card.className = 'menuCard';
+      card.innerHTML = `
+        <img src="${item.img}" alt="${item.name}">
+        <div class="itemName">${item.name}</div>
+        <div class="itemPrice">Rp ${item.price.toLocaleString()}</div>
+        <input type="number" min="0" max="99" value="0" aria-label="Jumlah ${item.name}" data-idx="${idx}">
+      `;
+      container.appendChild(card);
+    });
+  }
+
+  // Render menu awal
+  renderMenu(foods, foodContainer);
+  renderMenu(drinks, drinkContainer);
+
+  // Fungsi update keranjang saat input jumlah berubah
+  function updateCart() {
+    cart = [];
+
+    // Ambil semua input di makanan & minuman
+    const inputs = document.querySelectorAll('.menuCard input[type=number]');
+    inputs.forEach(input => {
+      let qty = parseInt(input.value) || 0;
+      if (qty < 0) qty = 0;
+      if (qty > 99) qty = 99;
+      input.value = qty;
+
+      if (qty > 0) {
+        const isFood = input.closest('#foodContainer') !== null;
+        const menuItem = isFood ? foods[input.dataset.idx] : drinks[input.dataset.idx];
+        cart.push({name: menuItem.name, price: menuItem.price, qty});
+      }
+    });
+
+    renderCart();
+  }
+
+  // Fungsi render keranjang dan total harga
+  function renderCart() {
+    if (cart.length === 0) {
+      cartContent.textContent = 'Keranjang kosong';
+      subtotalDisplay.textContent = 'Rp 0';
+      taxDisplay.textContent = 'Rp 0';
+      totalDisplay.textContent = 'Rp 0';
+      paymentImg.src = '';
+      paymentImg.alt = '';
+      return;
+    }
+
+    // Buat string isi keranjang
+    let lines = '';
+    let subtotal = 0;
+    cart.forEach(item => {
+      const lineTotal = item.price * item.qty;
+      subtotal += lineTotal;
+      lines += `${item.name.padEnd(15)} x${item.qty.toString().padStart(2)} = Rp ${lineTotal.toLocaleString()}\n`;
+    });
+
+    const tax = Math.round(subtotal * TAX_RATE);
+    const total = subtotal + tax;
+
+    cartContent.textContent = lines.trim();
+    subtotalDisplay.textContent = `Rp ${subtotal.toLocaleString()}`;
+    taxDisplay.textContent = `Rp ${tax.toLocaleString()}`;
+    totalDisplay.textContent = `Rp ${total.toLocaleString()}`;
+
+    updatePaymentImage();
+  }
+
+  // Fungsi update gambar metode pembayaran QRIS / Cash / Dana
+  function updatePaymentImage() {
+    const selected = document.querySelector('input[name="payMethod"]:checked').value;
+    if (selected === 'qris') {
+      paymentImg.src = 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/66/QRIS_Logo.svg/320px-QRIS_Logo.svg.png';
+      paymentImg.alt = 'Logo QRIS';
+    } else if (selected === 'dana') {
+      paymentImg.src = 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Dana_logo.svg/320px-Dana_logo.svg.png';
+      paymentImg.alt = 'Logo Dana';
+    } else {
+      paymentImg.src = '';
+      paymentImg.alt = '';
+    }
+  }
+
+  // Event listener input jumlah
+  foodContainer.addEventListener('input', (e) => {
+    if (e.target.tagName === 'INPUT') {
+      updateCart();
+    }
+  });
+  drinkContainer.addEventListener('input', (e) => {
+    if (e.target.tagName === 'INPUT') {
+      updateCart();
+    }
+  });
+
+  // Event listener metode pembayaran
+  paymentRadios.forEach(radio => {
+    radio.addEventListener('change', updatePaymentImage);
+  });
+
+  // Event tombol bersihkan keranjang
+  clearCartBtn.addEventListener('click', () => {
+    cart = [];
+    // Reset semua input jumlah ke 0
+    document.querySelectorAll('.menuCard input[type=number]').forEach(i => i.value = 0);
+    renderCart();
+  });
+
+  // Event tombol cetak struk
+  printBtn.addEventListener('click', () => {
+    if (cart.length === 0) {
+      alert('Keranjang kosong, silakan pilih menu terlebih dahulu.');
+      return;
+    }
+
+    // Siapkan data struk
+    let printWindow = window.open('', 'PrintStruk', 'width=400,height=600');
+    let dateStr = new Date().toLocaleString();
+
+    let subtotal = cart.reduce((acc,i) => acc + i.price * i.qty,0);
+    let tax = Math.round(subtotal * TAX_RATE);
+    let total = subtotal + tax;
+    
+    // Get payment method
+    const paymentMethod = document.querySelector('input[name="payMethod"]:checked').value;
+    let paymentMethodText = '';
+    if (paymentMethod === 'cash') {
+      paymentMethodText = 'Tunai';
+    } else if (paymentMethod === 'qris') {
+      paymentMethodText = 'QRIS';
+    } else if (paymentMethod === 'dana') {
+      paymentMethodText = 'Dana';
+    }
+
+    // Simpan transaksi ke riwayat
+    const transaction = {
+      id: Date.now(),
+      date: dateStr,
+      items: [...cart],
+      subtotal: subtotal,
+      tax: tax,
+      total: total,
+      paymentMethod: paymentMethodText,
+      address: currentAddress || 'Tidak diketahui'
+    };
+    
+    // Ambil riwayat dari localStorage atau buat array kosong
+    let history = JSON.parse(localStorage.getItem('purchaseHistory')) || [];
+    history.unshift(transaction); // Tambahkan di awal array
+    localStorage.setItem('purchaseHistory', JSON.stringify(history));
+
+    let strukHTML = `
+      <html><head><title>Struk Pembayaran</title>
+      <style>
+        body { font-family: monospace; padding: 15px; }
+        h2 { text-align: center; }
+        pre { white-space: pre-wrap; }
+      </style></head><body>
+      <h2>Struk Kasir Resto</h2>
+      <p>${dateStr}</p>
+      <p>Alamat: ${currentAddress || 'Tidak diketahui'}</p>
+      <pre>
+${cart.map(i => `${i.name.padEnd(15)} x${i.qty.toString().padStart(2)} = Rp ${ (i.price * i.qty).toLocaleString()}`).join('\n')}
+      </pre>
+      <p>Subtotal: Rp ${subtotal.toLocaleString()}</p>
+      <p>Pajak 10%: Rp ${tax.toLocaleString()}</p>
+      <p><strong>Total: Rp ${total.toLocaleString()}</strong></p>
+      <p>Metode pembayaran: ${paymentMethodText}</p>
+      <p>Terima kasih sudah berbelanja!</p>
+      </body></html>`;
+
+    printWindow.document.write(strukHTML);
+    printWindow.document.close();
+    printWindow.focus();
+    printWindow.print();
+    printWindow.close();
+    
+    // Reset keranjang setelah cetak
+    cart = [];
+    document.querySelectorAll('.menuCard input[type=number]').forEach(i => i.value = 0);
+    renderCart();
+  });
+
+  // Event tombol logout
+  logoutBtn.addEventListener('click', () => {
+    if (confirm('Yakin ingin logout? Semua data keranjang akan hilang.')) {
+      cart = [];
+      document.querySelectorAll('.menuCard input[type=number]').forEach(i => i.value = 0);
+      renderCart();
+
+      appSection.style.display = 'none';
+      loginSection.style.display = 'flex';
+    }
+  });
+
+  // Event tombol riwayat
+  historyBtn.addEventListener('click', () => {
+    appSection.style.display = 'none';
+    historySection.style.display = 'block';
+    loadPurchaseHistory();
+  });
+
+  // Event tombol kembali ke app
+  backToAppBtn.addEventListener('click', () => {
+    historySection.style.display = 'none';
+    appSection.style.display = 'block';
+  });
+
+  // Event tombol tutup detail
+  closeDetailBtn.addEventListener('click', () => {
+    historyDetailModal.style.display = 'none';
+  });
+
+  // Load purchase history dari localStorage
+  function loadPurchaseHistory() {
+    const history = JSON.parse(localStorage.getItem('purchaseHistory')) || [];
+    
+    if (history.length === 0) {
+      historyContainer.innerHTML = '<div class="emptyHistory">Belum ada riwayat pembelian</div>';
+      return;
+    }
+    
+    let tableHTML = `
+      <table class="historyTable">
+        <thead>
+          <tr>
+            <th>Tanggal</th>
+            <th>Jumlah Item</th>
+            <th>Total</th>
+            <th>Metode</th>
+            <th>Aksi</th>
+          </tr>
+        </thead>
+        <tbody>
+    `;
+    
+    history.forEach(transaction => {
+      const itemCount = transaction.items.reduce((sum, item) => sum + item.qty, 0);
+      tableHTML += `
+        <tr>
+          <td>${transaction.date}</td>
+          <td>${itemCount}</td>
+          <td>Rp ${transaction.total.toLocaleString()}</td>
+          <td>${transaction.paymentMethod}</td>
+          <td><span class="viewDetails" data-id="${transaction.id}">Lihat Detail</span></td>
+        </tr>
+      `;
+    });
+    
+    tableHTML += '</tbody></table>';
+    historyContainer.innerHTML = tableHTML;
+    
+    // Tambah event listener untuk tombol lihat detail
+    document.querySelectorAll('.viewDetails').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const transactionId = parseInt(e.target.dataset.id);
+        showTransactionDetail(transactionId);
+      });
+    });
+  }
+
+  // Tampilkan detail transaksi
+  function showTransactionDetail(transactionId) {
+    const history = JSON.parse(localStorage.getItem('purchaseHistory')) || [];
+    const transaction = history.find(t => t.id === transactionId);
+    
+    if (!transaction) return;
+    
+    let itemsHTML = `
+      <div class="historyDetailItems">
+        <h4>Item Pembelian</h4>
+        <table>
+          <thead>
+            <tr>
+              <th>Nama</th>
+              <th>Jumlah</th>
+              <th>Harga</th>
+              <th>Total</th>
+            </tr>
+          </thead>
+          <tbody>
+    `;
+    
+    transaction.items.forEach(item => {
+      itemsHTML += `
+        <tr>
+          <td>${item.name}</td>
+          <td>${item.qty}</td>
+          <td>Rp ${item.price.toLocaleString()}</td>
+          <td>Rp ${(item.price * item.qty).toLocaleString()}</td>
+        </tr>
+      `;
+    });
+    
+    itemsHTML += '</tbody></table></div>';
+    
+    const summaryHTML = `
+      <div class="historyDetailSummary">
+        <div>
+          <span>Subtotal:</span>
+          <span>Rp ${transaction.subtotal.toLocaleString()}</span>
+        </div>
+        <div>
+          <span>Pajak (10%):</span>
+          <span>Rp ${transaction.tax.toLocaleString()}</span>
+        </div>
+        <div class="total">
+          <span>Total:</span>
+          <span>Rp ${transaction.total.toLocaleString()}</span>
+        </div>
+        <div>
+          <span>Metode Pembayaran:</span>
+          <span>${transaction.paymentMethod}</span>
+        </div>
+        <div>
+          <span>Alamat:</span>
+          <span>${transaction.address}</span>
+        </div>
+      </div>
+    `;
+    
+    historyDetailBody.innerHTML = `
+      <p><strong>Tanggal:</strong> ${transaction.date}</p>
+      ${itemsHTML}
+      ${summaryHTML}
+    `;
+    
+    historyDetailModal.style.display = 'flex';
+  }
+
+  // Login
+  loginForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    const username = document.getElementById('userInput').value.trim();
+    const password = document.getElementById('passInput').value.trim();
+
+    if (username === 'admin' && password === '1234') {
+      loginSection.style.display = 'none';
+      appSection.style.display = 'block';
+    } else {
+      alert('Username atau password salah!');
+    }
+  });
+
+  // Lokasi & reverse geocoding
+  checkLocationBtn.addEventListener('click', () => {
+    if (!navigator.geolocation) {
+      locationInfo.textContent = '📍 Geolocation tidak didukung oleh browser ini.';
+      return;
+    }
+
+    locationInfo.textContent = '📍 Mendapatkan lokasi...';
+
+    navigator.geolocation.getCurrentPosition(position => {
+      const lat = position.coords.latitude;
+      const lon = position.coords.longitude;
+
+      // Pakai Nominatim reverse geocoding
+      fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}`)
+        .then(response => response.json())
+        .then(data => {
+          if (data && data.display_name) {
+            currentAddress = data.display_name;
+            locationInfo.textContent = `📍 Alamat: ${currentAddress}`;
+          } else {
+            locationInfo.textContent = '📍 Alamat tidak ditemukan';
+          }
+        })
+        .catch(err => {
+          console.error(err);
+          locationInfo.textContent = '📍 Gagal mengambil alamat';
+        });
+
+    }, error => {
+      console.error(error);
+      locationInfo.textContent = '📍 Gagal mendapatkan lokasi. Pastikan izin lokasi diizinkan.';
+    });
+  });
+
+  // Inisialisasi awal
+  renderCart();
+</script>
+
+</body>
+</html>
